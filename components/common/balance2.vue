@@ -69,6 +69,7 @@ try {
         autoplay
         muted
         loop
+        playsinline
       ></video>
     </div>
     <div class="balance-inner">
