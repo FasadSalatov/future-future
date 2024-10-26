@@ -20,13 +20,12 @@ const isPromoCodeValid = ref<null | boolean>(null);
 
 const id = $telegramInitData?.user?.id || '1052552985';
 if (user.value?.presale_active) {
-     navigateTo("/private");
+    isPromoCodeValid.value = true;
      
   }
 const togglePromoCode = () => {
      if (user.value?.presale_active) {
      navigateTo("/private");
-     isPromoCodeValid.value = true;
   }
 
   isOpen.value = !isOpen.value;
@@ -82,6 +81,7 @@ const refetchUser = async () => {
         </button>
       </div>
     </div>
+
     <div
       :class="[
         'promo-code-inner',
@@ -89,7 +89,26 @@ const refetchUser = async () => {
       ]"
     >
       <div class="promo-code-inner-no-active">
+        <!-- Кнопка 1 - Pre-seed раунд, когда promoCodeValid === true -->
         <button
+          v-if="isPromoCodeValid === true"
+          class="promo-code-inner-button trtr"
+          @click="
+            () => {
+              if (clickPromo) {
+                clickPromo();
+              } else {
+                togglePromoCode();
+              }
+            }
+          "
+        >
+          <p class="presss">Pre-seed раунд</p>
+        </button>
+
+        <!-- Кнопка 2 - Ошибка, когда promoCodeValid === false -->
+        <button
+          v-else
           class="promo-code-inner-button"
           @click="
             () => {
@@ -101,28 +120,52 @@ const refetchUser = async () => {
             }
           "
         >
-          <template v-if="user.value?.presale_active">
-            Pre-seed раунд
-          </template>
-          <template v-else>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.63604 15.364C6.15076 18.8787 11.8492 18.8787 15.364 15.364C18.8787 11.8493 18.8787 6.15077 15.364 2.63606C11.8492 -0.878663 6.15076 -0.878663 2.63604 2.63606C-0.87868 6.15077 -0.878679 11.8493 2.63604 15.364ZM9.01853 10.4134L12.121 13.5158L13.4984 12.1384L10.3959 9.03598L13.5343 5.89759L12.1024 4.46569L8.96404 7.60409L5.86161 4.50165L4.4842 5.87906L7.58663 8.98149L4.46568 12.1024L5.89757 13.5343L9.01853 10.4134Z" fill="#020817"/>
-            </svg>
-          </template>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.63604 15.364C6.15076 18.8787 11.8492 18.8787 15.364 15.364C18.8787 11.8493 18.8787 6.15077 15.364 2.63606C11.8492 -0.878663 6.15076 -0.878663 2.63604 2.63606C-0.87868 6.15077 -0.878679 11.8493 2.63604 15.364ZM9.01853 10.4134L12.121 13.5158L13.4984 12.1384L10.3959 9.03598L13.5343 5.89759L12.1024 4.46569L8.96404 7.60409L5.86161 4.50165L4.4842 5.87906L7.58663 8.98149L4.46568 12.1024L5.89757 13.5343L9.01853 10.4134Z" fill="#020817"/>
+          </svg>
         </button>
       </div>
     </div>
   </section>
 </template>
 
+
 <style scoped lang="sass">
+.promo-code-inner-type 
+  padding: 15px !important
+.trtr 
+  margin-left: -3rem
+  margin-right: -3rem
+.prepre 
+  margin: 0
+  width: 5px
+  white-space: nowrap !important
+  transform: rotate(-90deg) !important
+.presss
+
+  font-family: 'Montserrat'
+  font-style: normal
+  font-weight: 700
+  font-size: 14px
+
+  text-align: center
+
+
+  color: #020817
+
+  transform: rotate(-90deg) !important
+
+
 .promo-code-inner-type-form-input
-  padding: 0.2rem
+  display: flex
+  align-content: center
+  padding: 0.5rem
 .promo-code-inner-type-text
   font-family: Inter, sans-serif
   font-size: 1rem
   font-weight: bold
   text-wrap: nowrap
+  margin-top: -0.5rem
   margin-bottom: -0.5rem
   margin-right: -0.5rem
 .promo-code-inner-type 
