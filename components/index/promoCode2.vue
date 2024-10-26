@@ -25,7 +25,7 @@ if (user.value?.presale_active) {
   }
 const togglePromoCode = () => {
      if (user.value?.presale_active) {
-     navigateTo("/private");
+     navigateTo("/start");
   }
 
   isOpen.value = !isOpen.value;
