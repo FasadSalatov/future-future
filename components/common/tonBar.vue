@@ -7,9 +7,10 @@ const { user, setUser } = useUserStore();
 const { $telegramInitData } = useNuxtApp();
 const userBalance = toRef(useUserStore(), "user");
 const balance = ref(user?.buy_coin || 0);
-const tonAmount = ref(3);
+const tonAmount = ref(0);
 const conversionRate = ref(2);
-const convertedAmount = computed(() => balance.value / conversionRate.value);
+const convertedAmount = computed(() => (balance.value / conversionRate.value)+tonAmount.value);
+
 const progress = ref(30);
 
 const buyTokens = async () => {
@@ -53,6 +54,9 @@ const counterAnimation = (nextBalance: number) => {
   };
   animation();
 };
+watch(tonAmount, (newValue) => {
+  console.log("Updated tonAmount:", newValue);
+});
 
 // Watch for balance changes and trigger animation
 watch(
@@ -131,10 +135,10 @@ const calculatedProgress = computed(() => {
           </defs>
         </svg>
           <p class="ppp">TON:</p>
-          <input type="number" v-model="tonAmount.value" min="1" class="ton-amount" placeholder="Кол-во" />
+          <input type="number" v-model="tonAmount" min="1" class="ton-amount" placeholder="Кол-во" />
         </div>
         <div class="conversion-info">
-        <span>1</span>
+        <span>{{ tonAmount || 1}}</span>
           <svg width="25" height="25" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_302_2269)">
             <path d="M15 30.5C23.2843 30.5 30 23.7843 30 15.5C30 7.21571 23.2843 0.5 15 0.5C6.71571 0.5 0 7.21571 0 15.5C0 23.7843 6.71571 30.5 15 30.5Z" fill="#0098EA"/>
@@ -148,7 +152,7 @@ const calculatedProgress = computed(() => {
         </svg>
           <span>=</span>
           
-          <span>{{ conversionRate }}</span>
+          <span>{{ conversionRate*tonAmount || 1}}</span>
           <svg width="25" height="25" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="14" cy="14.5" r="14" fill="black"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99171 18.2259H8.07763C7.78026 17.7883 7.48123 17.3519 7.18353 16.9147C7.50758 16.4405 7.83108 15.9659 8.15424 15.4911C8.77622 16.4024 9.39786 17.314 10.0191 18.2259H9.9916H9.99171ZM5.41925 18.2259H3.48535C5.01615 15.9813 6.55292 13.7397 8.07763 11.4912C8.72474 11.4924 9.37206 11.4915 10.0192 11.4912C8.48992 13.7371 6.95768 15.981 5.42689 18.2259H5.41925ZM5.48235 14.4197L3.48535 11.4912C4.13257 11.4915 4.77967 11.4912 5.42689 11.4912C5.77297 11.9987 6.11916 12.5061 6.46502 13.0137C6.14241 13.4889 5.81792 13.9628 5.49431 14.4373L5.48235 14.4197Z" fill="url(#paint0_linear_302_2350)"/>

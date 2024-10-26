@@ -27,20 +27,13 @@
 
         <NuxtLink
           class="navbar-inner-button"
-          to="/start"
+          to="/stat2"
           active-class="navbar-inner-button-active"
         >
           <NuxtImg src="/icon/navbar/how-it.svg" />
           <span class="navbar-inner-button-text">Как это работает</span>
         </NuxtLink>
-        <button
-          class="navbar-inner-button"
-          active-class="navbar-inner-button-active"
-          @click="onClickCommunity"
-        >
-          <NuxtImg src="/icon/navbar/question.svg" />
-          <span class="navbar-inner-button-text"> Закрытое комьюнити </span>
-        </button>
+
       </div>
     </section>
   </div>
@@ -72,6 +65,7 @@ const onClickCommunity = () => {
   position: fixed
   display: flex
   flex-direction: column
+  
   width: 100%
   bottom: 0
   z-index: 2
@@ -89,7 +83,7 @@ const onClickCommunity = () => {
 
   &-inner
     display: grid
-    grid-template-columns: 25% 25% 25% 25%
+    grid-template-columns: 35% 35% 35%
     align-items: baseline
 
     &::before

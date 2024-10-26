@@ -178,7 +178,7 @@ onUnmounted(() => {
       preload
     />
     
-      <IndexLeave />
+      
     
      <CommonNavBarPrivat2 />
   </div>
