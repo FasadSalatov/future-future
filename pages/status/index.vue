@@ -206,6 +206,7 @@ onUnmounted(() => {
     border-bottom: 1px solid black
     margin-bottom: 15px
     padding: 15px 0 15px 0
+    
 
 .tonn 
 
@@ -234,6 +235,7 @@ onUnmounted(() => {
     width: 100vw
     display: flex
     justify-content: center
+
 .statton
     display: flex
     width: 95%
@@ -245,6 +247,11 @@ onUnmounted(() => {
     background: rgba(255, 255, 255, 0.8)
     width: 90vw
     border-radius: 15px
+        border-radius: 16px
+    margin-bottom: 10px
+    padding: 16px
+    height: 70vh
+    overflow-y: auto
 .stat-info 
     display: flex
     flex-direction: column

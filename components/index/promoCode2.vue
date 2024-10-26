@@ -19,11 +19,14 @@ const { $telegramInitData } = useNuxtApp();
 const isPromoCodeValid = ref<null | boolean>(null);
 
 const id = $telegramInitData?.user?.id || '1052552985';
-
+if (user.value?.presale_active) {
+     navigateTo("/private");
+     
+  }
 const togglePromoCode = () => {
      if (user.value?.presale_active) {
-     navigateTo("/start");
-     return;
+     navigateTo("/private");
+     isPromoCodeValid.value = true;
   }
 
   isOpen.value = !isOpen.value;
@@ -56,44 +59,40 @@ const refetchUser = async () => {
     id="promo-code"
     :style="{ top: top ? `${top}px` : '' }"
   >
-  <div class="promo-code-inner-type" :class="{ 'is-open': isOpen }">
-          <p class="promo-code-inner-type-text">Введите код для входа</p>
-          <div class="promo-code-inner-type-form">
-            <input
-              v-model="promoCodeInput"
-              class="promo-code-inner-type-form-input"
-              type="text"
-              placeholder="Код"
-              autocomplete="on"
-              required
-            />
-            <button
-              class="promo-code-inner-type-form-button"
-              type="submit"
-              @click="sendPromoCode"
-            >
-              <NuxtImg
-                class="promo-code-inner-type-form-button-icon"
-                src="/image/bin/submit.png"
-              />
-            </button>
-          </div>
-        </div>
+    <div class="promo-code-inner-type" :class="{ 'is-open': isOpen }">
+      <p class="promo-code-inner-type-text">Введите код для входа</p>
+      <div class="promo-code-inner-type-form">
+        <input
+          v-model="promoCodeInput"
+          class="promo-code-inner-type-form-input"
+          type="text"
+          placeholder="Код"
+          autocomplete="on"
+          required
+        />
+        <button
+          class="promo-code-inner-type-form-button"
+          type="submit"
+          @click="sendPromoCode"
+        >
+          <NuxtImg
+            class="promo-code-inner-type-form-button-icon"
+            src="/image/bin/submit.png"
+          />
+        </button>
+      </div>
+    </div>
     <div
       :class="[
         'promo-code-inner',
         { 'promo-code-inner-error': isPromoCodeValid === false },
       ]"
     >
-    
       <div class="promo-code-inner-no-active">
-      
         <button
           class="promo-code-inner-button"
           @click="
             () => {
-              console.log(clickPromo);
-
               if (clickPromo) {
                 clickPromo();
               } else {
@@ -102,13 +101,15 @@ const refetchUser = async () => {
             }
           "
         >
-<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2.63604 15.364C6.15076 18.8787 11.8492 18.8787 15.364 15.364C18.8787 11.8493 18.8787 6.15077 15.364 2.63606C11.8492 -0.878663 6.15076 -0.878663 2.63604 2.63606C-0.87868 6.15077 -0.878679 11.8493 2.63604 15.364ZM9.01853 10.4134L12.121 13.5158L13.4984 12.1384L10.3959 9.03598L13.5343 5.89759L12.1024 4.46569L8.96404 7.60409L5.86161 4.50165L4.4842 5.87906L7.58663 8.98149L4.46568 12.1024L5.89757 13.5343L9.01853 10.4134Z" fill="#020817"/>
-</svg>
-
+          <template v-if="user.value?.presale_active">
+            Pre-seed раунд
+          </template>
+          <template v-else>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.63604 15.364C6.15076 18.8787 11.8492 18.8787 15.364 15.364C18.8787 11.8493 18.8787 6.15077 15.364 2.63606C11.8492 -0.878663 6.15076 -0.878663 2.63604 2.63606C-0.87868 6.15077 -0.878679 11.8493 2.63604 15.364ZM9.01853 10.4134L12.121 13.5158L13.4984 12.1384L10.3959 9.03598L13.5343 5.89759L12.1024 4.46569L8.96404 7.60409L5.86161 4.50165L4.4842 5.87906L7.58663 8.98149L4.46568 12.1024L5.89757 13.5343L9.01853 10.4134Z" fill="#020817"/>
+            </svg>
+          </template>
         </button>
-
-        
       </div>
     </div>
   </section>

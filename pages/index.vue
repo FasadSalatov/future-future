@@ -151,11 +151,11 @@ onUnmounted(() => {
      />
   
     <IndexPromoCode
-      v-show="user?.promo_active"
+      v-show="true"
       :clickPromo="naviagateToPrivate"
-      :top="0"
+      :top="100"
     />
-    
+    <IndexPromoCode />
     
     <Capcha v-show="!isCapcha" />
 
