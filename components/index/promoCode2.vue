@@ -61,14 +61,15 @@ const refetchUser = async () => {
     <div class="promo-code-inner-type" :class="{ 'is-open': isOpen }">
       <p class="promo-code-inner-type-text">Введите код для входа</p>
       <div class="promo-code-inner-type-form">
-        <input
-          v-model="promoCodeInput"
-          class="promo-code-inner-type-form-input"
-          type="text"
-          placeholder="Код"
-          autocomplete="on"
-          required
-        />
+<input
+  v-model="promoCodeInput"
+  :class="['promo-code-inner-type-form-input', { 'input-error': isPromoCodeValid === false }]"
+  type="text"
+  placeholder="Код"
+  autocomplete="on"
+  required
+/>
+
         <button
           class="promo-code-inner-type-form-button"
           type="submit"
@@ -131,6 +132,9 @@ const refetchUser = async () => {
 
 
 <style scoped lang="sass">
+.input-error 
+  border: 2px solid red !important
+
 .promo-code-inner-type 
   padding: 15px !important
 .trtr 
