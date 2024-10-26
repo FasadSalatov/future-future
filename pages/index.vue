@@ -151,7 +151,7 @@ onUnmounted(() => {
      />
   
     <IndexPromoCode3
-      v-show="true"
+      v-show="user?.promo_active"
       :clickPromo="naviagateToPrivate"
       :top="100"
     />
